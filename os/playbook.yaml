@@ -1,0 +1,14 @@
+- hosts: web
+  become: true
+  vars:
+    ansible_user: azureuser
+    ansible_password: '{{ lookup("env", "TF_VAR_vm_admin_password") }}'
+  tasks:
+    - name: Update Debian Package Repositories & Install Nginx
+      ansible.builtin.apt:
+        name: nginx=1.18.0-6ubuntu14.4
+        update_cache: yes
+    - name: Start nginx service
+      ansible.builtin.service:
+        name: nginx
+        state: started

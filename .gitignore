@@ -1,0 +1,14 @@
+# local environment
+.env
+.images.txt
+
+# terraform
+infra/.terraform
+infra/.terraform.lock.hcl
+infra/main.tfplan
+infra/main.destroy.tfplan
+infra/terraform.tfstate
+infra/terraform.tfstate.backup
+
+# ansible
+os/inventory.ini
