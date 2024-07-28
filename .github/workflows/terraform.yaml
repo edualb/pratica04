@@ -48,7 +48,7 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          TF_VAR_VM_ADMIN_PASSWORD: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
+          TF_VAR_vm_admin_password: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
         run: |
           cd infra
           terraform init
@@ -60,15 +60,16 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          TF_VAR_VM_ADMIN_PASSWORD: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
+          TF_VAR_vm_admin_password: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
         run: |
           cd infra
           terraform apply "main.tfplan"
           cd ..
       - name: Ansible Playbook
         env:
-          TF_VAR_VM_ADMIN_PASSWORD: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
+          TF_VAR_vm_admin_password: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
         run: |
           cd os
+          sudo apt install sshpass
           ansible-playbook -i inventory.ini playbook.yaml
           cd ..

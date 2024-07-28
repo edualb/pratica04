@@ -77,7 +77,7 @@ resource "azurerm_linux_virtual_machine" "puc_minas" {
   size                = "Standard_B1s"
 
   admin_username                  = var.username
-  admin_password                  = var.VM_ADMIN_PASSWORD
+  admin_password                  = var.vm_admin_password
   disable_password_authentication = false
 
   # Check: CKV_AZURE_50: "Ensure Virtual Machine Extensions are not Installed"

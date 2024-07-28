@@ -35,7 +35,7 @@ export ARM_CLIENT_ID="<appId> do output da AZURE realizado no passo anterior"
 export ARM_CLIENT_SECRET="<password> do output da AZURE realizado no passo anterior"
 export ARM_SUBSCRIPTION_ID="<subscription> da URL da AZURE"
 export ARM_TENANT_ID="<tenant> do output da AZURE realizado no passo anterior"
-export TF_VAR_VM_ADMIN_PASSWORD="a senha que você quiser para acessar a VM"
+export TF_VAR_vm_admin_password="a senha que você quiser para acessar a VM"
 ```
 
 Para provisionar a infraestrutura utilizando **CI/CD (Github Actions)**, é preciso configurar diretamente na página do Github acessando: 

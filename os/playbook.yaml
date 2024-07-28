@@ -2,7 +2,7 @@
   become: true
   vars:
     ansible_user: azureuser
-    ansible_password: '{{ lookup("env", "TF_VAR_VM_ADMIN_PASSWORD") }}'
+    ansible_password: '{{ lookup("env", "TF_VAR_vm_admin_password") }}'
   tasks:
     - name: Update Debian Package Repositories & Install Nginx
       ansible.builtin.apt:
