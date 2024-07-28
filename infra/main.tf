@@ -94,11 +94,25 @@ resource "azurerm_linux_virtual_machine" "puc_minas" {
     storage_account_type = "StandardSSD_LRS"
   }
 
-  # discover by running '$ az vm image list -f Ubuntu --all > images.txt'
+  # discovered by running '$ az vm image list -f Ubuntu --all > images.txt'
   source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts-gen2"
     version   = "22.04.202407250"
+  }
+
+  connection {
+    host     = azurerm_public_ip.puc_minas.ip_address
+    type     = "ssh"
+    port     = 22
+    password = var.vm_admin_password
+    user     = var.username
+    agent    = false
+    timeout  = "1m"
+  }
+
+  provisioner "remote-exec" {
+    inline = ["sudo apt-get -qq install python"]
   }
 }
