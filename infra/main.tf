@@ -113,6 +113,6 @@ resource "azurerm_linux_virtual_machine" "puc_minas" {
   }
 
   provisioner "remote-exec" {
-    inline = ["sudo apt-get -qq install python"]
+    inline = ["echo ${azurerm_linux_virtual_machine.puc_minas.id}"]
   }
 }
