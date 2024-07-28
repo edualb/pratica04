@@ -1,6 +1,7 @@
 # local environment
 .env
 .images.txt
+.trash
 
 # terraform
 infra/.terraform

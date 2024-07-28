@@ -37,7 +37,16 @@ jobs:
           cd ..
       - name: Terraform Plan
         run: |
-          echo Hello World!
+          cd infra
+          terraform init
+          terraform plan -out=main.tfplan
+          cd ..
+      - name: Terraform Apply
+        run: |
+          cd infra
+          terraform apply "main.tfplan"
+          cd ..
+          
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       # - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
