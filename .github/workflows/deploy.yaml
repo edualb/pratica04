@@ -18,18 +18,19 @@ jobs:
       - name: Install Checkov
         run: |
           pip3 install checkov
-      - name: Check Terraform & TFLint installation
+      - name: Check Terraform, TFLint and Checkov installation
         run: |
           terraform --version
           tflint --version
-          checkov --version
+          echo "checkov $(checkov --version)"
       - name: Terraform Lint
         run: |
           cd infra
           tflint --init
           terraform fmt
           tflint
-          checkov --soft-fail --directory $(pwd) 
+          checkov --soft-fail --directory $(pwd)
+          cd ..
       - name: Terraform Plan
         run: |
           echo Hello World!
