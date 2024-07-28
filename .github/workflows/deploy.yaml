@@ -23,12 +23,16 @@ jobs:
           terraform --version
           tflint --version
           echo "checkov $(checkov --version)"
-      - name: Terraform Lint
+      - name: Terraform Lint (TFLint & Terraform Formatter)
         run: |
           cd infra
           tflint --init
           terraform fmt
           tflint
+          cd ..
+      - name: Terraform Scan Security (Checkov)
+        run: |
+          cd infra
           checkov --soft-fail --directory $(pwd)
           cd ..
       - name: Terraform Plan
