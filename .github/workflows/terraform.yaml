@@ -71,5 +71,7 @@ jobs:
         run: |
           cd os
           sudo apt install sshpass
-          ansible-playbook -i inventory.ini playbook.yaml
+          eval `ssh-agent -s`
+          ls -lha
+          ansible-playbook -vvvv -i inventory.ini playbook.yaml
           cd ..
