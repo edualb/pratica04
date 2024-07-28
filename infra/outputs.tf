@@ -3,11 +3,11 @@ output "resource_group_name" {
 }
 
 output "public_ip_address" {
-  value = azurerm_public_ip.puc_minas.*.ip_address
+  value = azurerm_public_ip.puc_minas[*].ip_address
 }
 
 # generate inventory file for Ansible
-resource "local_file" "hosts_cfg" {
+resource "local_file" "ansbile_inventory" {
   content = templatefile("../os/inventory.template.ini",
     {
       public_ip = azurerm_public_ip.puc_minas.ip_address

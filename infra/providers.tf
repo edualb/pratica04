@@ -4,6 +4,10 @@ terraform {
   backend "local" {}
 
   required_providers {
+    local = {
+      source = "hashicorp/local"
+      version = "~>2.5"
+    }
     azapi = {
       source  = "azure/azapi"
       version = "~>1.5"
