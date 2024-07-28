@@ -18,11 +18,15 @@ jobs:
       - name: Install Checkov
         run: |
           pip3 install checkov
-      - name: Check Terraform, TFLint and Checkov installation
+      - name: Install Ansible
+        run: |
+          pip3 install --include-deps ansible
+      - name: Check Terraform, TFLint, Checkov and Ansible installation
         run: |
           terraform --version
           tflint --version
           echo "checkov $(checkov --version)"
+          ansible-playbook --version
       - name: Terraform Lint (TFLint & Terraform Formatter)
         run: |
           cd infra
@@ -35,29 +39,29 @@ jobs:
           cd infra
           checkov --soft-fail --directory $(pwd)
           cd ..
-      - name: Terraform Plan
-        env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          TF_VAR_VM_ADMIN_PASSWORD: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
-        run: |
-          cd infra
-          terraform init
-          terraform plan -out=main.tfplan
-          cd ..
-      - name: Terraform Apply
-        env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          TF_VAR_VM_ADMIN_PASSWORD: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
-        run: |
-          cd infra
-          terraform apply "main.tfplan"
-          cd ..
+      # - name: Terraform Plan
+      #   env:
+      #     ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      #     ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      #     ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      #     ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      #     TF_VAR_VM_ADMIN_PASSWORD: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
+      #   run: |
+      #     cd infra
+      #     terraform init
+      #     terraform plan -out=main.tfplan
+      #     cd ..
+      # - name: Terraform Apply
+      #   env:
+      #     ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      #     ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      #     ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      #     ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      #     TF_VAR_VM_ADMIN_PASSWORD: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
+      #   run: |
+      #     cd infra
+      #     terraform apply "main.tfplan"
+      #     cd ..
           
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
