@@ -20,7 +20,10 @@ jobs:
           pip3 install checkov
       - name: Install Ansible
         run: |
-          pip3 install --include-deps ansible
+          sudo apt install pipx
+          pipx ensurepath
+          sudo pipx ensurepath --global
+          pipx install --include-deps ansible
       - name: Check Terraform, TFLint, Checkov and Ansible installation
         run: |
           terraform --version
