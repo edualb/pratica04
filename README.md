@@ -84,3 +84,14 @@ $ sudo apt install sshpass
 $ cd os
 $ ansible-playbook -i inventory.ini playbook.yaml
 ```
+
+# Evidências
+
+## CI CD
+![CI CD PROCESS](evidencias/cicd-process.png)
+
+![CI CD SUCCESS](evidencias/cicd-success.png)
+
+## Página Web
+
+![PAG WEB](evidencias/web.png)
