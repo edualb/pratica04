@@ -4,6 +4,10 @@ terraform {
   backend "local" {}
 
   required_providers {
+    null_resource = {
+      source  = "hashicorp/null"
+      version = "~>3.2"
+    }
     local = {
       source  = "hashicorp/local"
       version = "~>2.5"
