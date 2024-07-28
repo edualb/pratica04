@@ -70,8 +70,6 @@ jobs:
           TF_VAR_vm_admin_password: ${{ secrets.TF_VAR_VM_ADMIN_PASSWORD }}
         run: |
           cd os
-          sudo apt install sshpass
-          eval `ssh-agent -s`
-          ls -lha
+          # sshpass is already installed.
           ansible-playbook -vvvv -i inventory.ini playbook.yaml
           cd ..
