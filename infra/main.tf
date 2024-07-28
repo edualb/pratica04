@@ -35,6 +35,13 @@ resource "azurerm_network_security_group" "puc_minas" {
   }
 }
 
+# Check: CKV2_AZURE_31: "Ensure VNET subnet is configured with a Network Security Group (NSG)"
+# Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-31
+resource "azurerm_subnet_network_security_group_association" "puc_minas" {
+  subnet_id                 = azurerm_subnet.puc_minas.id
+  network_security_group_id = azurerm_network_security_group.puc_minas.id
+}
+
 resource "azurerm_public_ip" "puc_minas" {
   name                = "student-pip"
   location            = azurerm_resource_group.puc_minas.location
@@ -72,6 +79,10 @@ resource "azurerm_linux_virtual_machine" "puc_minas" {
   admin_username                  = var.username
   admin_password                  = var.vm_admin_password
   disable_password_authentication = false
+
+  # Check: CKV_AZURE_50: "Ensure Virtual Machine Extensions are not Installed"
+  # Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azr-general-14
+  allow_extension_operations = false
 
   network_interface_ids = [
     azurerm_network_interface.puc_minas.id,

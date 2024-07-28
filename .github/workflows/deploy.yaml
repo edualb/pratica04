@@ -15,16 +15,24 @@ jobs:
       - name: Install TFLint
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      - name: Install Checkov
+        run: |
+          pip3 install checkov
       - name: Check Terraform & TFLint installation
         run: |
           terraform --version
           tflint --version
+          checkov --version
       - name: Terraform Lint
         run: |
           cd infra
           tflint --init
           terraform fmt
           tflint
+          checkov --soft-fail --directory $(pwd) 
+      - name: Terraform Plan
+        run: |
+          echo Hello World!
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       # - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
