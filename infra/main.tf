@@ -102,12 +102,14 @@ resource "azurerm_linux_virtual_machine" "puc_minas" {
     version   = "22.04.202407250"
   }
 
+  # In order to allow Ansible Connection, we need to wait for the SSH works as expected.
+  # https://stackoverflow.com/questions/57774985/terraform-ssh-authentication-failed-user22-ssh-handshake-failed
   connection {
     host     = azurerm_public_ip.puc_minas.ip_address
     type     = "ssh"
     port     = 22
-    password = var.vm_admin_password
     user     = var.username
+    password = var.vm_admin_password
     agent    = false
     timeout  = "1m"
   }

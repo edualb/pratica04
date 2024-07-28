@@ -71,5 +71,5 @@ jobs:
         run: |
           cd os
           # sshpass is already installed.
-          ansible-playbook -vvvv -i inventory.ini playbook.yaml
+          ansible-playbook -i inventory.ini playbook.yaml
           cd ..
